@@ -1,0 +1,13 @@
+# IDE
+.idea/
+.vscode/
+
+# Node / Angular
+sara-frontend/node_modules/
+sara-frontend/dist/
+
+# Maven
+sara-backend/target/
+
+# OS
+.DS_Store
