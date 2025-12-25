@@ -1,0 +1,27 @@
+<header class="main-header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-mark">SR</span>
+      <div class="logo-text">
+        <div class="logo-name">Sara Rahmani</div>
+        <div class="logo-subtitle">Psychologue clinicienne</div>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <a routerLink="/home" routerLinkActive="active">Accueil</a>
+      <a routerLink="/consultations" routerLinkActive="active">Consultations</a>
+      <a routerLink="/webinaires" routerLinkActive="active">Webinaires</a>
+      <a routerLink="/neurosciences" routerLinkActive="active">Neurosciences</a>
+    </nav>
+
+    <div class="auth-actions">
+      <button *ngIf="!isLoggedIn" routerLink="/login" class="btn-outline">
+        Se connecter
+      </button>
+      <button *ngIf="isLoggedIn" (click)="logout()" class="btn-solid">
+        Déconnexion
+      </button>
+    </div>
+  </div>
+</header>

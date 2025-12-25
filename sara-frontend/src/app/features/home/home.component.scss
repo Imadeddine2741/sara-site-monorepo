@@ -1,0 +1,90 @@
+.home-hero {
+  padding: 40px 16px 32px;
+  background: linear-gradient(135deg, #eff6ff, #fdf2ff);
+}
+
+.home-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+  gap: 32px;
+  align-items: center;
+}
+
+.home-text h1 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+.home-text p {
+  font-size: 0.98rem;
+  color: #4b5563;
+  max-width: 520px;
+}
+
+.home-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.btn-primary,
+.btn-secondary {
+  border-radius: 9999px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: #ffffff;
+  border: none;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: #2563eb;
+  border-color: #2563eb;
+}
+
+.home-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.brain-circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #a5b4fc, #4f46e5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #eef2ff;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.home-sections {
+  max-width: 1120px;
+  margin: 24px auto 40px;
+  padding: 0 16px 16px;
+  display: grid;
+  gap: 20px;
+}
+
+.home-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+  color: #111827;
+}
+
+.home-section p {
+  font-size: 0.95rem;
+  color: #4b5563;
+}

@@ -1,0 +1,39 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h1 class="auth-title">Créer un compte</h1>
+    <p class="auth-subtitle">Inscription à l’espace patient Sara Rahmani.</p>
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="auth-field">
+        <label class="auth-label">Nom</label>
+        <input class="auth-input" type="text" formControlName="nom">
+      </div>
+
+      <div class="auth-field">
+        <label class="auth-label">Prénom</label>
+        <input class="auth-input" type="text" formControlName="prenom">
+      </div>
+
+      <div class="auth-field">
+        <label class="auth-label">Email</label>
+        <input class="auth-input" type="email" formControlName="email">
+      </div>
+
+      <div class="auth-field">
+        <label class="auth-label">Mot de passe</label>
+        <input class="auth-input" type="password" formControlName="password">
+      </div>
+
+      <button class="auth-button" type="submit" [disabled]="loading || form.invalid">
+        {{ loading ? 'Création en cours...' : 'Créer le compte' }}
+      </button>
+
+      <p class="auth-error" *ngIf="error">{{ error }}</p>
+    </form>
+
+    <div class="auth-footer">
+      Déjà un compte ? <a routerLink="/login">Se connecter</a>
+    </div>
+  </div>
+</div>
+

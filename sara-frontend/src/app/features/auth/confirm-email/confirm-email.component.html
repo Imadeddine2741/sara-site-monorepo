@@ -1,0 +1,17 @@
+<div class="confirm-page">
+  <div class="confirm-card">
+    <h1 class="confirm-title">Confirmation d'email</h1>
+
+    <div *ngIf="loading" class="confirm-loading">
+      <p>Vérification en cours...</p>
+    </div>
+
+    <div *ngIf="!loading" class="confirm-result">
+      <p [class.success]="success" [class.error]="!success">{{ message }}</p>
+
+      <a *ngIf="success" routerLink="/login" class="confirm-button">
+        Se connecter
+      </a>
+    </div>
+  </div>
+</div>
