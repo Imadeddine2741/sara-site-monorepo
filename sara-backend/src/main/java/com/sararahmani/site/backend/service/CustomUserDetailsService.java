@@ -2,33 +2,37 @@ package com.sararahmani.site.backend.service;
 
 import com.sararahmani.site.backend.entity.User;
 import com.sararahmani.site.backend.repository.UserRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = repository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé : " + email));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé: " + email));
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                user.isEnabled(),
-                true,
-                true,
-                true,
-                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
-        );
+        if (!user.isEnabled()) {
+            throw new org.springframework.security.authentication.DisabledException(
+                    "Votre compte n'est pas encore activé. Vérifiez votre email pour confirmer."
+            );
+        }
+
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .authorities(user.getRole().name())
+                .accountLocked(false)
+                .disabled(!user.isEnabled())
+                .build();
     }
 }
+
 

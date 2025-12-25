@@ -3,36 +3,30 @@ package com.sararahmani.site.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "users")
-@Getter
-@Setter
+@Table(name = "password_reset_tokens")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+@Getter
+@Setter
+public class PasswordResetToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
+    private String token;
+
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
-    private String password; // hashé (BCrypt)
-
-    @Column(nullable = false)
-    private String nom;
-
-    @Column(nullable = false)
-    private String prenom;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+    private LocalDateTime expiresAt;
 
     @Builder.Default
-    private boolean enabled = false;
+    private boolean used = false;
 }
-
