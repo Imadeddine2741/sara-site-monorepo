@@ -3,6 +3,7 @@ package com.sararahmani.site.backend.service;
 import com.sararahmani.site.backend.entity.User;
 import com.sararahmani.site.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,18 +21,12 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé: " + email));
 
         if (!user.isEnabled()) {
-            throw new org.springframework.security.authentication.DisabledException(
+            throw new DisabledException(
                     "Votre compte n'est pas encore activé. Vérifiez votre email pour confirmer."
             );
         }
 
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getEmail())
-                .password(user.getPassword())
-                .authorities(user.getRole().name())
-                .accountLocked(false)
-                .disabled(!user.isEnabled())
-                .build();
+        return user;
     }
 }
 

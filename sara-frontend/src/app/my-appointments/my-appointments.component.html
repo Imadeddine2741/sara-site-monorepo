@@ -1,0 +1,67 @@
+<div class="appointments-container">
+  <div class="header">
+    <h2>Mes rendez-vous</h2>
+    <a routerLink="/new-appointment" class="btn-new">+ Nouveau RDV</a>
+  </div>
+
+  <!-- Messages -->
+  <div class="alert alert-success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="alert alert-error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading">
+    <p>Chargement...</p>
+  </div>
+
+  <!-- Liste RDV -->
+  <div class="appointment-list" *ngIf="!loading && appointments.length; else noAppointments">
+    <div class="appointment-card"
+         *ngFor="let appt of appointments"
+         [ngClass]="{
+           'cancelled': appt.status === 'CANCELLED',
+           'planned': appt.status === 'PLANNED',
+           'confirmed': appt.status === 'CONFIRMED',
+           'completed': appt.status === 'COMPLETED'
+         }">
+
+      <div class="appointment-header">
+        <div class="datetime">
+          <h3>{{ appt.dateHeure | date:'EEEE dd MMMM yyyy' }}</h3>
+          <span class="time">{{ appt.dateHeure | date:'HH:mm' }}</span>
+        </div>
+
+        <span class="status status-{{appt.status | lowercase}}">
+          {{ appt.status | titlecase }}
+        </span>
+      </div>
+
+      <div class="motif">
+        "{{ appt.motif }}"
+      </div>
+
+      <div class="footer" *ngIf="appt.canPatientCancel && appt.status === 'PLANNED'">
+        <span class="countdown">
+          Annulation possible dans {{ daysBefore(appt.dateHeure) }} jours
+        </span>
+        <button class="btn-cancel" (click)="cancelAppointment(appt.id)">
+          <i class="icon">✕</i> Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pas de RDV -->
+  <ng-template #noAppointments>
+    <div class="empty-state" *ngIf="!loading">
+      <div class="empty-icon">📅</div>
+      <h3>Aucun rendez-vous</h3>
+      <p>Prenez votre premier rendez-vous avec Sara Rahmani</p>
+      <a routerLink="/new-appointment" class="btn-primary">Prendre RDV</a>
+    </div>
+  </ng-template>
+</div>
+

@@ -13,14 +13,18 @@
       <a routerLink="/consultations" routerLinkActive="active">Consultations</a>
       <a routerLink="/webinaires" routerLinkActive="active">Webinaires</a>
       <a routerLink="/neurosciences" routerLinkActive="active">Neurosciences</a>
+      <a *ngIf="isLoggedIn" routerLink="/my-appointments" routerLinkActive="active">Mes RDV</a>
     </nav>
 
     <div class="auth-actions">
+      <a *ngIf="isLoggedIn" routerLink="/new-appointment" class="btn-rdv">
+        Prendre RDV
+      </a>
       <button *ngIf="!isLoggedIn" routerLink="/login" class="btn-outline">
         Se connecter
       </button>
       <button *ngIf="isLoggedIn" (click)="logout()" class="btn-solid">
-        Déconnexion
+        Deconnexion
       </button>
     </div>
   </div>

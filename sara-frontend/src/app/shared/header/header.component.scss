@@ -92,3 +92,18 @@
   color: #ffffff;
   border: none;
 }
+
+.btn-rdv {
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  background: #10b981;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #059669;
+  }
+}

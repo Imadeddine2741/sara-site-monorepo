@@ -25,8 +25,9 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         String message = "Email ou mot de passe incorrect.";
 
         // Si c'est un compte désactivé, on récupère le message custom
-        if (authException.getCause() instanceof org.springframework.security.authentication.DisabledException) {
-            message = authException.getMessage();
+        if (authException instanceof org.springframework.security.authentication.DisabledException
+                || authException.getCause() instanceof org.springframework.security.authentication.DisabledException) {
+            message = authException.getCause() != null ? authException.getCause().getMessage() : authException.getMessage();
         }
 
         Map<String, Object> error = Map.of(

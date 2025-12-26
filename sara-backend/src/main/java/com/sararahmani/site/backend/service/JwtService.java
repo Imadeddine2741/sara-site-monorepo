@@ -29,8 +29,8 @@ public class JwtService {
         Date exp = new Date(now.getTime() + expiration);
 
         return Jwts.builder()
-                .setSubject(subject)
                 .setClaims(claims)
+                .setSubject(subject)
                 .setIssuedAt(now)
                 .setExpiration(exp)
                 .signWith(key, SignatureAlgorithm.HS256)

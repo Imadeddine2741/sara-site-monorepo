@@ -1,0 +1,73 @@
+<div class="new-appointment-container">
+  <div class="header">
+    <a routerLink="/my-appointments" class="back-link">&larr; Retour</a>
+    <h2>Prendre rendez-vous</h2>
+  </div>
+
+  <!-- Messages -->
+  <div class="alert alert-success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="alert alert-error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <form (ngSubmit)="onSubmit()" class="appointment-form">
+    <!-- Date -->
+    <div class="form-group">
+      <label for="date">Date du rendez-vous</label>
+      <input
+        type="date"
+        id="date"
+        [(ngModel)]="selectedDate"
+        name="selectedDate"
+        [min]="minDate"
+        required
+      />
+      <small *ngIf="selectedDate && isWeekend(selectedDate)" class="warning">
+        Attention : le cabinet est fermé le week-end
+      </small>
+    </div>
+
+    <!-- Heure -->
+    <div class="form-group">
+      <label for="time">Heure</label>
+      <select id="time" [(ngModel)]="selectedTime" name="selectedTime" required>
+        <option value="" disabled>Choisir une heure</option>
+        <option *ngFor="let time of availableTimes" [value]="time">
+          {{ time }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Motif -->
+    <div class="form-group">
+      <label for="motif">Motif de consultation</label>
+      <textarea
+        id="motif"
+        [(ngModel)]="motif"
+        name="motif"
+        rows="4"
+        maxlength="500"
+        placeholder="Décrivez brièvement la raison de votre consultation..."
+        required
+      ></textarea>
+      <small class="char-count">{{ motif.length }}/500 caractères</small>
+    </div>
+
+    <!-- Bouton -->
+    <button type="submit" class="btn-submit" [disabled]="loading">
+      <span *ngIf="!loading">Confirmer le rendez-vous</span>
+      <span *ngIf="loading">Réservation en cours...</span>
+    </button>
+  </form>
+
+  <div class="info-box">
+    <h4>Informations</h4>
+    <ul>
+      <li>Durée de la consultation : 50 minutes</li>
+      <li>Annulation gratuite jusqu'à 48h avant le RDV</li>
+      <li>Cabinet ouvert du lundi au vendredi</li>
+    </ul>
+  </div>
+</div>
