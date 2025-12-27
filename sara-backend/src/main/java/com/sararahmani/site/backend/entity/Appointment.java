@@ -24,9 +24,11 @@ public class Appointment {
     @Column(nullable = false, length = 500)
     private String motif;
 
+    @Builder.Default
     @Column(nullable = false)
     private Integer dureeMinutes = 50; // 50min par défaut
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status = Status.PLANNED;
@@ -35,6 +37,7 @@ public class Appointment {
     @JoinColumn(name = "patient_id", nullable = false)
     private User patient;
 
+    @Builder.Default
     @Column(nullable = false)
     private boolean annuleParPatient = false;
 
