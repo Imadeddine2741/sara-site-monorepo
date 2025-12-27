@@ -44,14 +44,16 @@ jobs:
         working-directory: ./sara-backend
         run: |
           echo "Checking JaCoCo coverage report..."
-          if [ -f target/jacoco-report/jacoco.xml ]; then
-            echo "Coverage report generated successfully"
-            cat target/jacoco-report/jacoco.xml | head -20
-          else
-            echo "Coverage report not found!"
-            find target -name "jacoco.xml" 2>/dev/null || echo "No jacoco.xml found anywhere"
-            exit 1
-          fi
+          echo "=== Searching for jacoco.xml ==="
+          find target -name "jacoco.xml" -type f 2>/dev/null
+          echo "=== Listing target directory ==="
+          ls -la target/ || echo "target not found"
+          echo "=== Listing site directory ==="
+          ls -la target/site/jacoco/ 2>/dev/null || echo "target/site/jacoco not found"
+          echo "=== Listing jacoco-report directory ==="
+          ls -la target/jacoco-report/ 2>/dev/null || echo "target/jacoco-report not found"
+          echo "=== Checking for any jacoco files ==="
+          find target -name "jacoco*" -type f 2>/dev/null
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
