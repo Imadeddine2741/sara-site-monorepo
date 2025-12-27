@@ -44,10 +44,12 @@ jobs:
         working-directory: ./sara-backend
         run: |
           echo "Checking JaCoCo coverage report..."
-          if [ -f target/site/jacoco/jacoco.xml ]; then
+          if [ -f target/jacoco-report/jacoco.xml ]; then
             echo "Coverage report generated successfully"
+            cat target/jacoco-report/jacoco.xml | head -20
           else
             echo "Coverage report not found!"
+            find target -name "jacoco.xml" 2>/dev/null || echo "No jacoco.xml found anywhere"
             exit 1
           fi
 
@@ -55,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: sara-backend/target/site/jacoco/
+          path: sara-backend/target/jacoco-report/
 
   sonarcloud:
     name: SonarCloud Analysis
