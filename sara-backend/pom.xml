@@ -21,6 +21,9 @@
 		<java.version>17</java.version>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<jjwt.version>0.11.5</jjwt.version>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<sonar.token>sqa_32db93e8fbfb9213b425aeb4d21cf49665b66c93</sonar.token>
+		<sonar.projectKey>sara-site-backend</sonar.projectKey>
 	</properties>
 
 	<dependencies>
