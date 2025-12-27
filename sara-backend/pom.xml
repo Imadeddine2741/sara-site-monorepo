@@ -24,7 +24,8 @@
 		<!-- SonarQube -->
 		<sonar.host.url>http://localhost:9000</sonar.host.url>
 		<sonar.projectKey>sara-site-backend</sonar.projectKey>
-		<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 
 	<dependencies>
@@ -192,12 +193,12 @@
 					</execution>
 					<execution>
 						<id>report</id>
-						<phase>test</phase>
+						<phase>verify</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+							<outputDirectory>${project.build.directory}/jacoco-report</outputDirectory>
 						</configuration>
 					</execution>
 					<execution>
