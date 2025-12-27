@@ -63,8 +63,6 @@ jobs:
     name: SonarCloud Analysis
     runs-on: ubuntu-latest
     needs: test
-    # Desactiver si vous n'avez pas configure SonarCloud
-    if: ${{ vars.SONAR_ENABLED == 'true' }}
 
     steps:
       - name: Checkout code
@@ -86,9 +84,16 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Run tests for Sonar
+      - name: Run tests and generate coverage
         working-directory: ./sara-backend
         run: mvn clean verify -Dspring.profiles.active=test
+
+      - name: Verify coverage report exists
+        working-directory: ./sara-backend
+        run: |
+          echo "Looking for JaCoCo report..."
+          ls -la target/jacoco-report/ || echo "Directory not found"
+          cat target/jacoco-report/jacoco.xml | head -5 || echo "jacoco.xml not found"
 
       - name: SonarCloud Scan
         working-directory: ./sara-backend
@@ -97,11 +102,14 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn sonar:sonar \
-            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }} \
-            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }} \
+            -Dsonar.projectKey=Imadeddine2741_sara-site-monorepo \
+            -Dsonar.organization=imadeddine2741 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco-report/jacoco.xml \
-            -Dsonar.java.coveragePlugin=jacoco
+            -Dsonar.java.coveragePlugin=jacoco \
+            -Dsonar.sources=src/main/java \
+            -Dsonar.tests=src/test/java \
+            -Dsonar.java.binaries=target/classes
 
   build:
     name: Build Application
